@@ -1,6 +1,6 @@
 do ($ = jQuery) ->
 
-  $.fn.ajaxChosen = (settings = {}, callback = ->) ->
+  $.fn.ajaxChosen = (settings = {}, post_callback = ->, pre_callback = ->) ->
     defaultOptions =
       minTermLength: 3
       afterTypeDelay: 500
@@ -84,7 +84,7 @@ do ($ = jQuery) ->
 
             # Send the ajax results to the user callback so we can get an object of
             # value => text pairs to inject as <option> elements.
-            items = callback data
+            items = post_callback data
 
             # Iterate through the given data and inject the <option> elements into
             # the DOM if it doesn't exist in the selector already
@@ -120,6 +120,7 @@ do ($ = jQuery) ->
             # the width of the field after we reset the value of the input text.
             field.css('width','auto')
 
+          pre_callback()
           # Execute the ajax call to search for autocomplete data with a timer
           @timer = setTimeout ->
             chosenXhr.abort() if chosenXhr
