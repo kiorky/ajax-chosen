@@ -1,6 +1,6 @@
 do ($ = jQuery) ->
 
-  $.fn.ajaxChosen = (settings = {}, post_callback = ->, pre_callback = ->) ->
+  $.fn.ajaxChosen = (settings = {}, post_callback = (->), pre_callback = (->)) ->
     defaultOptions =
       minTermLength: 3
       afterTypeDelay: 500
