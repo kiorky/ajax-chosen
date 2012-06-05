@@ -1,6 +1,6 @@
 do ($ = jQuery) ->
 
-  $.fn.ajaxChosen = (settings = {}, post_callback = (->), pre_callback = (->)) ->
+  $.fn.ajaxChosen = (settings = {}, callback = (->), pre_callback = (->), chosenOptions = {}) ->
     defaultOptions =
       minTermLength: 3
       afterTypeDelay: 500
@@ -17,7 +17,7 @@ do ($ = jQuery) ->
     # Load chosen. To make things clear, I have taken the liberty
     # of using the .chzn-autoselect class to specify input elements
     # we want to use with ajax autocomplete.
-    @chosen()
+    @chosen(if chosenOptions then chosenOptions else {})
 
     @each ->
       # Now that chosen is loaded normally, we can bootstrap it with
@@ -84,7 +84,7 @@ do ($ = jQuery) ->
 
             # Send the ajax results to the user callback so we can get an object of
             # value => text pairs to inject as <option> elements.
-            items = post_callback data
+            items = callback data
 
             # Iterate through the given data and inject the <option> elements into
             # the DOM if it doesn't exist in the selector already
